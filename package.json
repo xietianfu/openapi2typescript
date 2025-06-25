@@ -1,6 +1,6 @@
 {
   "name": "@xietf/openapi2typescript",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "可以根据OpenAPI 3.0文档生成 TypeScript 请求代码",
   "license": "MIT",
   "author": "xietf",
