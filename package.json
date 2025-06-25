@@ -8,6 +8,10 @@
   "bin": {
     "openapi2ts": "dist/cli.js"
   },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "files": [
     "dist",
     "templates"
