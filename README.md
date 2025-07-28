@@ -90,3 +90,4 @@ npm run openapi2ts
 | customClassName | (tagName: string) => string | 自定义类名 |
 | customType | (schemaObject, namespace, originGetType) => string | 自定义获取类型 |
 | customFileNames | (operationObject, apiPath, \_apiMethod) => string[] | 自定义生成文件名 |
+| customPath | (data: APIDataType) => string | 自定义路径 |

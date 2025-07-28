@@ -61,6 +61,8 @@ export type GenerateServiceProps = {
 
     /** 自定义函数名称 */
     customFunctionName?: (data: APIDataType) => string;
+    /** 自定义路径 */
+    customPath?: (data: APIDataType) => string;
     /** 自定义类型名称 */
     customTypeName?: (data: APIDataType) => string;
     /** 自定义 options 默认值 */
@@ -198,7 +200,10 @@ export const getSchema = async (schemaPath: string, authorization?: string) => {
       const headers = {
         authorization,
       };
-      const json = await fetch(schemaPath, { agent, headers: authorization? headers: {} }).then((rest) => rest.json());
+      const json = await fetch(schemaPath, {
+        agent,
+        headers: authorization ? headers : {},
+      }).then((rest) => rest.json());
       return json;
     } catch (error) {
       // eslint-disable-next-line no-console

@@ -98,7 +98,7 @@ const resolveTypeName = (typeName: string) => {
   // 这里做一个统一处理
   if (/^\d/.test(name)) {
     const firstChar = parseInt(name[0]);
-    name = `${numberToWords.toWords(firstChar)}${name.substring(1)}`
+    name = `${numberToWords.toWords(firstChar)}${name.substring(1)}`;
   }
 
   if (!/[\u3220-\uFA29]/.test(name) && !/^\d$/.test(name)) {
@@ -394,6 +394,7 @@ class ServiceGenerator {
     // 生成 service 统计
     this.getServiceTP().forEach((tp) => {
       // 根据当前数据源类型选择恰当的 controller 模版
+      // console.log('tp', tp);
       const template = 'serviceController';
       const hasError = this.genFileFromTemplate(
         this.getFinalFileName(`${tp.className}.ts`),
@@ -488,8 +489,9 @@ class ServiceGenerator {
               );
               if (newApi.extensions && newApi.extensions['x-antTech-description']) {
                 const { extensions } = newApi;
-                const { apiName, antTechVersion, productCode, antTechApiName } =
-                  extensions['x-antTech-description'];
+                const { apiName, antTechVersion, productCode, antTechApiName } = extensions[
+                  'x-antTech-description'
+                ];
                 formattedPath = antTechApiName || formattedPath;
                 this.mappings.push({
                   antTechApi: formattedPath,
@@ -556,12 +558,14 @@ class ServiceGenerator {
                 // prefix 变量
                 return `$\{${prefix}}${formattedPath}`;
               };
-
+              console.log('getPrefixPath', getPrefixPath());
               return {
                 ...newApi,
                 functionName: this.config.isCamelCase ? camelCase(functionName) : functionName,
                 typeName: this.getTypeName(newApi),
-                path: getPrefixPath(),
+                path:
+                  this.config.hook?.customPath?.({ ...newApi, path: getPrefixPath() }) ||
+                  getPrefixPath(),
                 pathInComment: formattedPath.replace(/\*/g, '&#42;'),
                 hasPathVariables: formattedPath.includes('{'),
                 hasApiPrefix: !!this.config.apiPrefix,
