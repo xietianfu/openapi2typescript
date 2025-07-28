@@ -558,7 +558,6 @@ class ServiceGenerator {
                 // prefix 变量
                 return `$\{${prefix}}${formattedPath}`;
               };
-              console.log('getPrefixPath', getPrefixPath());
               return {
                 ...newApi,
                 functionName: this.config.isCamelCase ? camelCase(functionName) : functionName,
