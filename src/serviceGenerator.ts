@@ -571,7 +571,9 @@ class ServiceGenerator {
                 method: newApi.method,
                 // 如果 functionName 和 summary 相同，则不显示 summary
                 desc:
-                  functionName === newApi.summary
+                  // 自定义desc 存在时，不处理 summary
+                  this.config.hook?.customDesc?.(newApi) ||
+                  (functionName === newApi.summary
                     ? newApi.description
                     : [
                         newApi.summary,
@@ -581,7 +583,7 @@ class ServiceGenerator {
                           : '',
                       ]
                         .filter((s) => s)
-                        .join(' '),
+                        .join(' ')),
                 hasHeader: !!(params && params.header) || !!(body && body.mediaType),
                 params: finalParams,
                 hasParams: Boolean(Object.keys(finalParams || {}).length),

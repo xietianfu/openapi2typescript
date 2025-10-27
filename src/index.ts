@@ -69,6 +69,8 @@ export type GenerateServiceProps = {
     customOptionsDefaultValue?: (data: OperationObject) => Record<string, any> | undefined;
     /** 自定义类名 */
     customClassName?: (tagName: string) => string;
+    /** 自定义desc */
+    customDesc?: (data: APIDataType) => string;
 
     /**
      * 自定义获取type hook
